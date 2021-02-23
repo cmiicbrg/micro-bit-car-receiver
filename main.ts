@@ -67,6 +67,8 @@ basic.showLeds(`
     . . . . .
     `)
 radio.setGroup(1)
+pins.analogWritePin(AnalogPin.P13, 384)
+pins.analogWritePin(AnalogPin.P14, 384)
 basic.forever(function () {
 	
 })
