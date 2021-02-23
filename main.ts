@@ -1,43 +1,40 @@
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     stop()
-    basic.showLeds(`
-        . . . . .
-        . . . . .
-        . . # . .
-        . . . . .
-        . . . . .
-        `)
 })
 function vor () {
     pins.digitalWritePin(DigitalPin.P0, 1)
     pins.digitalWritePin(DigitalPin.P1, 0)
     pins.digitalWritePin(DigitalPin.P8, 0)
     pins.digitalWritePin(DigitalPin.P12, 1)
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        # . # . #
+        . . # . .
+        . . # . .
+        `)
 }
 function stop () {
     pins.digitalWritePin(DigitalPin.P0, 0)
     pins.digitalWritePin(DigitalPin.P1, 0)
     pins.digitalWritePin(DigitalPin.P8, 1)
     pins.digitalWritePin(DigitalPin.P12, 1)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . # . .
+        . . . . .
+        . . . . .
+        `)
 }
 input.onButtonPressed(Button.A, function () {
     vor()
-    basic.showLeds(`
-        . . # . .
-        . # # # .
-        # . # . #
-        . . # . .
-        . . # . .
-        `)
 })
 function zurück () {
     pins.digitalWritePin(DigitalPin.P0, 0)
     pins.digitalWritePin(DigitalPin.P1, 1)
     pins.digitalWritePin(DigitalPin.P8, 1)
     pins.digitalWritePin(DigitalPin.P12, 0)
-}
-input.onButtonPressed(Button.AB, function () {
-    zurück()
     basic.showLeds(`
         . . # . .
         . . # . .
@@ -45,6 +42,9 @@ input.onButtonPressed(Button.AB, function () {
         . # # # .
         . . # . .
         `)
+}
+input.onButtonPressed(Button.AB, function () {
+    zurück()
 })
 radio.onReceivedString(function (receivedString) {
     if (receivedString == "vor") {
