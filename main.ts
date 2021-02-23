@@ -1,5 +1,12 @@
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     stop()
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . # . .
+        . . . . .
+        . . . . .
+        `)
 })
 function vor () {
     pins.digitalWritePin(DigitalPin.P0, 1)
@@ -15,6 +22,13 @@ function stop () {
 }
 input.onButtonPressed(Button.A, function () {
     vor()
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        # . # . #
+        . . # . .
+        . . # . .
+        `)
 })
 function zurück () {
     pins.digitalWritePin(DigitalPin.P0, 0)
@@ -24,6 +38,13 @@ function zurück () {
 }
 input.onButtonPressed(Button.AB, function () {
     zurück()
+    basic.showLeds(`
+        . . # . .
+        . . # . .
+        # . # . #
+        . # # # .
+        . . # . .
+        `)
 })
 radio.onReceivedString(function (receivedString) {
     if (receivedString == "vor") {
@@ -46,6 +67,7 @@ basic.showLeds(`
     . . . . .
     `)
 radio.setGroup(1)
+let v = 0.5
 basic.forever(function () {
 	
 })
