@@ -1,3 +1,6 @@
+input.onLogoEvent(TouchButtonEvent.Pressed, function () {
+    stop()
+})
 function vor () {
     pins.digitalWritePin(DigitalPin.P0, 1)
     pins.digitalWritePin(DigitalPin.P1, 0)
@@ -32,7 +35,7 @@ radio.onReceivedString(function (receivedString) {
     }
 })
 input.onButtonPressed(Button.B, function () {
-    stop()
+	
 })
 stop()
 basic.showLeds(`
