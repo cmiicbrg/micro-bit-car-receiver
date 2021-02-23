@@ -67,7 +67,6 @@ basic.showLeds(`
     . . . . .
     `)
 radio.setGroup(1)
-let v = 0.5
 basic.forever(function () {
 	
 })
