@@ -4,7 +4,7 @@ input.onLogoEvent(TouchButtonEvent.Pressed, function () {
 function schneller () {
     if (v == 0) {
         vor()
-    } else {
+    } else if (v < 1023) {
         v += 128
     }
 }
