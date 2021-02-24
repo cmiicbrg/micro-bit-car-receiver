@@ -2,10 +2,14 @@ input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     stop()
 })
 function schneller () {
-    v += 128
+    if (v == 0) {
+        vor()
+    } else {
+        v += 128
+    }
 }
 function vor () {
-    v = 384
+    v = 383
     pins.digitalWritePin(DigitalPin.P0, 1)
     pins.digitalWritePin(DigitalPin.P1, 0)
     pins.digitalWritePin(DigitalPin.P8, 0)
@@ -33,10 +37,10 @@ function stop () {
         `)
 }
 input.onButtonPressed(Button.A, function () {
-    vor()
+    langsamer()
 })
 function zurück () {
-    v = 384
+    v = 383
     pins.digitalWritePin(DigitalPin.P0, 0)
     pins.digitalWritePin(DigitalPin.P1, 1)
     pins.digitalWritePin(DigitalPin.P8, 1)
@@ -64,6 +68,13 @@ radio.onReceivedString(function (receivedString) {
 input.onButtonPressed(Button.B, function () {
     schneller()
 })
+function langsamer () {
+    if (v <= 383) {
+        stop()
+    } else {
+        v += -128
+    }
+}
 function schreibeGeschwindigkeit () {
     pins.analogWritePin(AnalogPin.P13, v)
     pins.analogWritePin(AnalogPin.P14, v)
