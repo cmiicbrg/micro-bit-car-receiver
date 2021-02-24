@@ -57,12 +57,14 @@ input.onButtonPressed(Button.AB, function () {
     zurück()
 })
 radio.onReceivedString(function (receivedString) {
-    if (receivedString == "vor") {
-        vor()
+    if (receivedString == "schneller") {
+        schneller()
     } else if (receivedString == "zurück") {
         zurück()
     } else if (receivedString == "stop") {
         stop()
+    } else if (receivedString == "langsamer") {
+        langsamer()
     }
 })
 input.onButtonPressed(Button.B, function () {
