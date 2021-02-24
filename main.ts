@@ -1,15 +1,19 @@
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
     stop()
 })
+radio.onReceivedNumber(function (receivedNumber) {
+    serial.writeValue("r", receivedNumber)
+    vr = Math.map(receivedNumber, -45, 45, 383, 1023)
+    vl = Math.map(-1 * receivedNumber, -45, 45, 383, 1023)
+})
 function schneller () {
-    if (v == 0) {
-        vor()
-    } else if (v < 1023) {
-        v += 128
+    vor()
+    if (vr < 1023 && vl < 1023) {
+        vr += 128
+        vl += 128
     }
 }
 function vor () {
-    v = 383
     pins.digitalWritePin(DigitalPin.P0, 1)
     pins.digitalWritePin(DigitalPin.P1, 0)
     pins.digitalWritePin(DigitalPin.P8, 0)
@@ -23,7 +27,6 @@ function vor () {
         `)
 }
 function stop () {
-    v = 0
     pins.digitalWritePin(DigitalPin.P0, 0)
     pins.digitalWritePin(DigitalPin.P1, 0)
     pins.digitalWritePin(DigitalPin.P8, 1)
@@ -40,7 +43,6 @@ input.onButtonPressed(Button.A, function () {
     langsamer()
 })
 function zurück () {
-    v = 383
     pins.digitalWritePin(DigitalPin.P0, 0)
     pins.digitalWritePin(DigitalPin.P1, 1)
     pins.digitalWritePin(DigitalPin.P8, 1)
@@ -71,17 +73,19 @@ input.onButtonPressed(Button.B, function () {
     schneller()
 })
 function langsamer () {
-    if (v <= 383) {
+    if (vr < 383 || vl < 383) {
         stop()
     } else {
-        v += -128
+        vr += -128
+        vl += -128
     }
 }
 function schreibeGeschwindigkeit () {
-    pins.analogWritePin(AnalogPin.P13, v)
-    pins.analogWritePin(AnalogPin.P14, v)
+    pins.analogWritePin(AnalogPin.P14, vr)
+    pins.analogWritePin(AnalogPin.P13, vl)
 }
-let v = 0
+let vl = 0
+let vr = 0
 stop()
 basic.showLeds(`
     . . . . .
@@ -91,8 +95,10 @@ basic.showLeds(`
     . . . . .
     `)
 radio.setGroup(1)
-v = 0
+vr = 703
+vl = 703
 basic.forever(function () {
-    serial.writeValue("v", v)
+    serial.writeValue("vr", vr)
+    serial.writeValue("vl", vl)
     schreibeGeschwindigkeit()
 })
